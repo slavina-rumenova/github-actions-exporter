@@ -15,8 +15,14 @@ var (
 		APIURL            string
 		CacheSizeBytes    int64
 	}
+
 	Metrics struct {
-		FetchWorkflowRunUsage bool
+		FetchReposWorkflow 		bool
+		FetchWorkflowRunUsage 	bool
+		FetchWorkflowRuns 		bool
+		FetchRepoRunners		bool
+		FetchOrgRunners			bool
+		FetchEnterpriseRunners	bool
 	}
 	Port           int
 	Debug          bool
@@ -114,11 +120,46 @@ func InitConfiguration() []cli.Flag {
 			Destination: &WorkflowFields,
 		},
 		&cli.BoolFlag{
+			Name:        "fetch_repos_workflows",
+			EnvVars:     []string{"FETCH_REPOS_WORKFLOWS"},
+			Usage:       "When true, will perform an API call to list all repositories and workflows",
+			Value:       true,
+			Destination: &Metrics.FetchReposWorkflow,
+		},
+		&cli.BoolFlag{
+			Name:        "fetch_workflow_runs",
+			EnvVars:     []string{"FETCH_WORKFLOW_RUNS"},
+			Usage:       "When true, will perform an API call per workflow to fetch workflow runs",
+			Value:       true,
+			Destination: &Metrics.FetchWorkflowRuns,
+		},
+		&cli.BoolFlag{
 			Name:        "fetch_workflow_run_usage",
 			EnvVars:     []string{"FETCH_WORKFLOW_RUN_USAGE"},
 			Usage:       "When true, will perform an API call per workflow run to fetch the workflow usage",
 			Value:       true,
 			Destination: &Metrics.FetchWorkflowRunUsage,
+		},
+		&cli.BoolFlag{
+			Name:        "fetch_repo_runners",
+			EnvVars:     []string{"FETCH_REPO_RUNNERS"},
+			Usage:       "When true, will perform an API call per repo to fetch repo runners",
+			Value:       true,
+			Destination: &Metrics.FetchRepoRunners,
+		},
+		&cli.BoolFlag{
+			Name:        "fetch_org_runners",
+			EnvVars:     []string{"FETCH_ORG_RUNNERS"},
+			Usage:       "When true, will perform an API call to list all org runners",
+			Value:       true,
+			Destination: &Metrics.FetchOrgRunners,
+		},
+		&cli.BoolFlag{
+			Name:        "fetch_enterprise_runners",
+			EnvVars:     []string{"FETCH_ENTERPRISE_RUNNERS"},
+			Usage:       "When true, will perform an API call to list all enterprise runners",
+			Value:       true,
+			Destination: &Metrics.FetchEnterpriseRunners,
 		},
 		&cli.Int64Flag{
 			Name:        "github_cache_size_bytes",

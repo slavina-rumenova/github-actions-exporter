@@ -30,6 +30,13 @@ Authentication can either via a Github Token or the Github App Authentication 3 
 | Github Api URL | github_api_url, url | GITHUB_API_URL | api.github.com | Github API URL (primarily for Github Enterprise usage) |
 | Github Enterprise Name | enterprise_name | ENTERPRISE_NAME | "" | Enterprise name. Needed for enterprise endpoints (/enterprises/{ENTERPRISE_NAME}/*). Currently used to get Enterprise level tunners status |
 | Fields to export | export_fields | EXPORT_FIELDS | repo,id,node_id,head_branch,head_sha,run_number,workflow_id,workflow,event,status | A comma separated list of fields for workflow metrics that should be exported |
+| Flag whether to read repos & workflow data | fetch_repos_workflows | FETCH_REPOS_WORKFLOWS | When true, it will continiously query Github for a list of repositories and related workflow. Note that it has to be on for workflow/repository related metrics to work. |
+| Flag whether to fetch workflow runs | fetch_workflow_runs | FETCH_WORKFLOW_RUNS | When true, it will continiously query Github for a list of workflow runs for all configured/read repositories & workflows |
+| Flag whether to fetch workflow runs billing data | fetch_workflow_run_usage | FETCH_WORKFLOW_RUN_USAGE | When true, it will continiously query Github for billing data related to workflow runs |
+| Flag whether to fetch repository runners | fetch_repo_runners | FETCH_REPO_RUNNERS | When true, it will continiously query Github to get a list repos & their runners |
+| Flag whether to fetch org runners | fetch_org_runners | FETCH_ORG_RUNNERS | When true, it will continiously query Github get a list orgs & their runners |
+| Flag whether to fetch enterprise runners | fetch_enterprise_runners | FETCH_ENTERPRISE_RUNNERS | When true, it will continiously query Github get a list Enterprises & their runners |
+
 
 ## Exported stats
 

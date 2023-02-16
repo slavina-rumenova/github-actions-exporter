@@ -53,19 +53,30 @@ func InitMetrics() {
 		log.Fatalln("Error: Client creation failed." + err.Error())
 	}
 
-	go periodicGithubFetcher()
+	if config.Metrics.FetchReposWorkflow {
+		go periodicGithubFetcher()
 
-	for {
-		if workflows != nil {
-			break
+		for {
+			if workflows != nil {
+				break
+			}
 		}
+	}	
+	if config.Metrics.FetchWorkflowRuns {
+		go getBillableFromGithub()
 	}
-
-	go getBillableFromGithub()
-	go getRunnersFromGithub()
-	go getRunnersOrganizationFromGithub()
-	go getWorkflowRunsFromGithub()
-	go getRunnersEnterpriseFromGithub()
+	if config.Metrics.FetchRepoRunners {
+		go getRunnersFromGithub()
+	}
+	if config.Metrics.FetchOrgRunners {
+		go getRunnersOrganizationFromGithub()
+	}
+	if config.Metrics.FetchWorkflowRuns {
+		go getWorkflowRunsFromGithub()
+	}
+	if config.Metrics.FetchEnterpriseRunners {
+		go getRunnersEnterpriseFromGithub()
+	}
 }
 
 // NewClient creates a Github Client
